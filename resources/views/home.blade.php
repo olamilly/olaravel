@@ -5,6 +5,7 @@
     <style>
         #container{
             text-align:center;
+            min-height:650px;
         }
         #table{
             display:flex;
@@ -35,6 +36,11 @@
         }
         #btn-group>button{
           margin:5px;
+        }
+        #links{
+          width:100%;
+          display:flex;
+          justify-content:center;
         }
     </style>
     <script>$(document).ready(function() {
@@ -84,6 +90,9 @@
   </div>
 </div>
 @endforeach
+<div id="links">
+  {{ $items->links('vendor.pagination.bootstrap-5') }}
+</div>
 </div>
 </body>
 </html>

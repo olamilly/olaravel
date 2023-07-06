@@ -22,9 +22,7 @@ class todoController extends Controller
         $newData->save();
         return response()->json(firstModel::all());
     }
-    public function read(){
-        return response()->json(firstModel::all());
-    }
+    
     public function update(Request $r){
         //\Log::info($r->id);
         $model = firstModel::where("id",$r->id)->first();

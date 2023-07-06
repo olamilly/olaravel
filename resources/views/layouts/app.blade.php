@@ -12,6 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
     <!-- Scripts
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -30,9 +31,16 @@
         footer{
             position:fixed;
             bottom:0;
+            left:0;
             width:100%;
             padding:7px;
-            background-color:lightgrey;
+            background-color:lightgrey;   
+        }
+        header{
+            position:fixed;
+            top:0;
+            width:100%;
+            left:0;
         }
         #hero{
             padding:2rem;
@@ -45,7 +53,8 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div id="hero"></div>
+        <header><nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Olamilly
@@ -112,7 +121,7 @@
 
                 
             </div>
-        </nav>
+        </nav></header>
 
         <main class="py-4">
             @yield('content')

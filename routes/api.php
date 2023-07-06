@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/create', [App\Http\Controllers\Api\todoController::class, 'create'])->name("create");
-    Route::get('/list', [App\Http\Controllers\Api\todoController::class, 'read'])->name("list");
+    Route::get('/list', [App\Http\Controllers\Api\getListController::class, 'read'])->name("list");
     Route::post('/update', [App\Http\Controllers\Api\todoController::class, 'update'])->name("update");
     Route::post('/delete', [App\Http\Controllers\Api\todoController::class, 'delete'])->name("delete");
 });

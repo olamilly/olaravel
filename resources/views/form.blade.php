@@ -28,6 +28,7 @@
 </head>
 <body>
 <div id="container">
+    <a href="{{ url('/') }}"><box-icon name='arrow-back'></box-icon></a>
     <h1>Form</h1>
     <form method="post" action="{{route('successful')}}">
         {{ csrf_field() }}
