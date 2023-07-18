@@ -23,41 +23,33 @@ class todoController extends Controller
         return response()->json(firstModel::paginate($take), 200, [], JSON_UNESCAPED_SLASHES);
     }
     
-    public function update(Request $r){
-        //\Log::info($r->id);
-        $model = firstModel::where("id",$r->id)->first();
-        if($model->user_id == Auth::User()->id){
-            $model->name = $r->name;
-            $model->content = $r->content;
-            $model->update();
-            return response()->json($model);
-        }
-        else{
+    public function update(string $id, Request $r){
+        $model = firstModel::where("id",$id)->first();
+        if($model->user_id != Auth::User()->id){
             return response()->json(["message"=>"You are not authorized to modify this item."]);
-        } 
+            
+        }
+        $model->name = $r->name;
+        $model->content = $r->content;
+        $model->update();
+        return response()->json($model);
     }
     public function complete(string $id){
         $model = firstModel::where("id",$id)->first();
-
-        if($model->user_id == Auth::User()->id){
-            $model->completed = 1;
-            $model->update();
-            return response()->json($model);
-        }
-        else{
+        if($model->user_id != Auth::User()->id){
             return response()->json(["message"=>"You are not authorized to modify this item."]);
-        } 
+        }
+        $model->completed = 1;
+        $model->update();
+        return response()->json($model); 
     }
-    public function delete(Request $id){
-        $tbd = firstModel::where("id",$id->id)->first();
-
-        if($tbd->user_id == Auth::User()->id){
-            $tbd->delete();
-            return response()->json(firstModel::all());
-        }
-        else{
+    public function delete(string $id){
+        $tbd = firstModel::where("id",$id)->first();
+        if($tbd->user_id != Auth::User()->id){
             return response()->json(["message"=>"You are not authorized to modify this item."]);
-        } 
+        }
+        $tbd->delete();
+        return response()->json(firstModel::all()); 
     }
 
 
