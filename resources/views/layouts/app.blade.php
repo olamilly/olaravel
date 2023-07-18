@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="cache-control" content="private, max-age=0, no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -48,6 +51,9 @@
         main{
             overflow:auto;
         }
+        a{
+            text-decoration:none;
+        }
     </style>
     
 </head>
@@ -78,7 +84,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('form') }}">Form</a>
                             </li>
-
+                            @if(Auth::User()->role == "admin")
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/admin') }}">Admin Dashboard</a>
+                            </li>
+                            @endif
                         @endguest
                     </ul>
 
@@ -104,12 +114,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('profile') }}">
+                                        Profile
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -141,6 +153,15 @@
                     <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
                 </ul>
             </footer>
+            <script>
+    // previous page should be reloaded when user navigate through browser navigation
+    // for mozilla
+    window.onunload = function(){};
+    // for chrome
+    if (window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_BACK_FORWARD) {
+        location.reload();
+    }
+    </script>
     </div>
 
             

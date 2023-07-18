@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\apinotforyou;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//User CRUD group
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', [App\Http\Controllers\Api\userController::class, 'read']);//get current user details
+    Route::patch('/user', [App\Http\Controllers\Api\userController::class, 'update']);//update current user details
+    Route::delete('/user', [App\Http\Controllers\Api\userController::class, 'delete']);//delete current user profile
 });
 
+//Todo CRUD group
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/create', [App\Http\Controllers\Api\todoController::class, 'create'])->name("create");
-    Route::get('/list', [App\Http\Controllers\Api\getListController::class, 'read'])->name("list");
-    Route::post('/update', [App\Http\Controllers\Api\todoController::class, 'update'])->name("update");
-    Route::post('/delete', [App\Http\Controllers\Api\todoController::class, 'delete'])->name("delete");
+    Route::post('/todo', [App\Http\Controllers\Api\todoController::class, 'create']); //add new todo item
+    Route::get('/todo', [App\Http\Controllers\Api\todoController::class, 'read']); //list all todo items
+    Route::patch('/todo', [App\Http\Controllers\Api\todoController::class, 'update']); //update todo item 
+    Route::patch('/todo/{id}/complete', [App\Http\Controllers\Api\todoController::class, 'complete']);//mark item as completed
+    Route::delete('/todo', [App\Http\Controllers\Api\todoController::class, 'delete']);//delete todo item
 });
 
-
-Route::get('/', [App\Http\Controllers\Api\todoController::class, 'index']);
-Route::post("register","App\Http\Controllers\Api\apiAuthController@register");
-Route::post("login","App\Http\Controllers\Api\apiAuthController@login");
+Route::post("register","App\Http\Controllers\Api\apiAuthController@register");//user signup route
+Route::post("login","App\Http\Controllers\Api\apiAuthController@login");//user login route

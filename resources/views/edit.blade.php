@@ -19,13 +19,13 @@
 <body>
 <div id="container">
 <a href="{{route('home')}}"><box-icon name='arrow-back'></box-icon></a>
-<h1>{{$editData->name}}</h1>
+<h1>Edit Item</h1>
 <form method="post" action="{{route('updated',['id'=>$editData->id])}}">
 {{ csrf_field() }}
 <div class="form-group row" >
     <label class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" name="name" class="form-control" Value="{{ $editData->name }}">
+      <input type="text" name="name" class="form-control" Value="{{ $editData->username }}">
     </div>
   </div>
   <div class="form-group row">

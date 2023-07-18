@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+Use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
+    public function todoItems(){
+        return $this->hasMany(firstModel::class);
+    }
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
